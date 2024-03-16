@@ -1,0 +1,41 @@
+{
+  "name" : "earnings_analysis_etl_job",
+  "jobMode" : "VISUAL",
+  "description" : "",
+  "role" : "arn:aws:iam::754594762432:role/service-role/AWSGlueServiceRole-EcoFin",
+  "executionProperty" : {
+    "maxConcurrentRuns" : 1
+  },
+  "command" : {
+    "name" : "glueetl",
+    "scriptLocation" : "s3://aws-glue-assets-754594762432-us-east-2/scripts/Ea.py",
+    "pythonVersion" : "3"
+  },
+  "defaultArguments" : {
+    "--enable-metrics" : "true",
+    "--enable-spark-ui" : "true",
+    "--spark-event-logs-path" : "s3://aws-glue-assets-754594762432-us-east-2/sparkHistoryLogs/",
+    "--enable-job-insights" : "false",
+    "--enable-observability-metrics" : "true",
+    "--enable-glue-datacatalog" : "true",
+    "--enable-continuous-cloudwatch-log" : "true",
+    "--job-bookmark-option" : "job-bookmark-disable",
+    "--job-language" : "python",
+    "--TempDir" : "s3://aws-glue-assets-754594762432-us-east-2/temporary/"
+  },
+  "maxRetries" : 0,
+  "allocatedCapacity" : 10,
+  "timeout" : 2880,
+  "maxCapacity" : 10.0,
+  "glueVersion" : "4.0",
+  "numberOfWorkers" : 10,
+  "workerType" : "G.1X",
+  "executionClass" : "STANDARD",
+  "codeGenConfigurationNodes" : "{\"node-1710539076461\":{\"S3CatalogTarget\":{\"Database\":\"eco-fin-db\",\"Inputs\":[\"node-1710538667807\"],\"Name\":\"AWS Glue Data Catalog\",\"PartitionKeys\":[],\"SchemaChangePolicy\":{\"EnableUpdateCatalog\":false},\"Table\":\"earnings_calendar\"}},\"node-1710538667807\":{\"ApplyMapping\":{\"Inputs\":[\"node-1710468887740\"],\"Mapping\":[{\"Dropped\":false,\"FromPath\":[\"symbol\"],\"FromType\":\"string\",\"ToKey\":\"symbol\",\"ToType\":\"string\"},{\"Dropped\":false,\"FromPath\":[\"company\"],\"FromType\":\"string\",\"ToKey\":\"company\",\"ToType\":\"string\"},{\"Dropped\":false,\"FromPath\":[\"event name\"],\"FromType\":\"string\",\"ToKey\":\"event name\",\"ToType\":\"string\"},{\"Dropped\":false,\"FromPath\":[\"earnings call time\"],\"FromType\":\"string\",\"ToKey\":\"earnings call time\",\"ToType\":\"string\"},{\"Dropped\":false,\"FromPath\":[\"eps estimate\"],\"FromType\":\"string\",\"ToKey\":\"eps estimate\",\"ToType\":\"string\"},{\"Dropped\":false,\"FromPath\":[\"reported eps\"],\"FromType\":\"string\",\"ToKey\":\"reported eps\",\"ToType\":\"string\"},{\"Dropped\":false,\"FromPath\":[\"surprise(%)\"],\"FromType\":\"string\",\"ToKey\":\"surprise(%)\",\"ToType\":\"string\"},{\"Dropped\":false,\"FromPath\":[\"earningsdate\"],\"FromType\":\"string\",\"ToKey\":\"earningsdate\",\"ToType\":\"string\"},{\"Dropped\":false,\"FromPath\":[\"__index_level_0__\"],\"FromType\":\"long\",\"ToKey\":\"__index_level_0__\",\"ToType\":\"long\"}],\"Name\":\"Change Schema\"}},\"node-1710468887740\":{\"CatalogSource\":{\"Database\":\"eco-fin-db\",\"Name\":\"AWS Glue Data Catalog\",\"Table\":\"earnings_calendar\"}}}",
+  "sourceControlDetails" : {
+    "provider" : "GITHUB",
+    "repository" : "eco-fin",
+    "branch" : "main",
+    "folder" : "glue"
+  }
+}
